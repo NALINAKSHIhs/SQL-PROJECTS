@@ -1,20 +1,8 @@
 --Library Management System using SQL Project
 
---OBJECTIVE
---Set up the Library Management System Database: Create and populate the database with tables for branches, employees, members, books, issued status, and return status.
---1) Operations: Perform Create, Read, Update, and Delete operations on the data.
---2)CTAS (Create Table As Select): Utilize CTAS to create new tables based on query results.
---3)Advanced SQL Queries: Develop complex queries to analyze and retrieve specific data.
-
---Project Structure
---1. Database Setup
---Database Creation: Created a database named `library_db`.
---Table Creation: Created tables for branches, employees, members, books, issued status, and return status. Each table includes relevant columns and relationships.
-
---project Library Mangement System
---1) CREATE DATABASE library;
-
---create table
+-- Database Setup
+-- 1) CREATE DATABASE library;
+-- create table
 
 DROP TABLE IF EXISTS Branch;
 CREATE TABLE Branch
@@ -35,7 +23,7 @@ CREATE TABLE Employees
 		branch_id VARCHAR(25)		
 );
 
---add foreign key if table was created early
+--Add foreign key if table was created early
 ALTER TABLE Employees
 ADD CONSTRAINT PK_Branch
 FOREIGN KEY (branch_id) REFERENCES  branch(branch_id);
@@ -95,7 +83,7 @@ SELECT * from Members
 SELECT * from Issued_status
 SELECT * from Return_status
 
--- Project TASK
+-- # Project TASK
 
 -- 2)CRUD Operations
 -- CRUD Operations
@@ -236,13 +224,14 @@ WHERE issued_id
 SELECT * FROM return_status;
 
 
--- Advanced SQL Operations
+-- 5) Advanced SQL Operations
 SELECT * from Books
 SELECT * from Branch
 SELECT * from Employees
 SELECT * from Members
 SELECT * from Return_status
 SELECT * from Issued_status
+	
 --Task 13: Identify Members with Overdue Books (Write a query to identify members who have overdue books (assume a 30-day return period). Display the member's name, book title, issue date, and days overdue).
 
 SELECT I.issued_member_id,
@@ -270,7 +259,7 @@ ORDER BY I.Issued_member_id
 (based on entries in the return_status table)).
 */
 
---STORE PROCEDURES
+--4) STORE PROCEDURES
 
 CREATE OR REPLACE PROCEDURE ADD_RETURN_RECORDS(P_RETURN_ID VARCHAR(10), P_ISSUED_ID VARCHAR(10), P_BOOK_QUALITY VARCHAR(15))
 -- data type based on issued_status table
@@ -422,11 +411,6 @@ WHERE R.BOOK_QUALITY = 'Damaged'
 GROUP BY 1,2,3
 HAVING COUNT(I.issued_id)>2;
 
-	
-SELECT * FROM BOOKS
-SELECT * from Members
-SELECT * from Issued_status
-SELECT * from Return_status
 
 /* Task 19: Stored Procedure (Objective: Create a stored procedure to manage the status of books in a library system.
     Description: Write a stored procedure that updates the status of a book based on its issuance or return.
@@ -440,6 +424,8 @@ The procedure should function as follows:
 	If the book is not available (status = 'no'), the procedure should return an error message indicating that the book is currently not available.
 
 */
+--STORE PROCEDURES
+
 CREATE OR REPLACE PROCEDURE ISSUE_BOOK (P_Issued_id VARCHAR(10), P_Issued_member_id VARCHAR(30), P_Issued_book_isbn VARCHAR(50), P_Issued_emp_id VARCHAR(10))
 LANGUAGE plpgsql
 AS $$

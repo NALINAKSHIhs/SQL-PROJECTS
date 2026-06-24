@@ -478,4 +478,29 @@ Description: Write a CTAS query to create a new table that lists each member and
     Number of overdue books
     Total fines
 */
-	
+
+CREATE TABLE OVER_DUE_BOOK_WITH_FINES
+AS
+SELECT I.issued_member_id,
+		M.member_name,
+		B.book_title,
+		I.issued_date,
+		--R.Return_date,
+		--(CURRENT_DATE)
+		'2024-08-24' - I.issued_date AS OVER_DUE,
+		('2024-08-24' - I.issued_date)* 0.50 AS  Total_fines
+FROM Issued_status AS I
+JOIN Members AS M
+	ON I.Issued_member_id = M.Member_id
+JOIN BOOKS AS B
+	ON B.isbn = I.issued_book_isbn
+LEFT JOIN Return_status AS R
+	ON R.issued_id = I.issued_id
+where 
+	R.Return_date is NULL
+	AND 
+	('2024-08-24' - I.issued_date) > 30
+ORDER BY I.Issued_member_id
+
+--Testing the function
+SELECT * FROM OVER_DUE_BOOK_WITH_FINES

@@ -232,8 +232,9 @@ SELECT * from Members
 SELECT * from Return_status
 SELECT * from Issued_status
 	
---Task 13: Identify Members with Overdue Books (Write a query to identify members who have overdue books (assume a 30-day return period). Display the member's name, book title, issue date, and days overdue).
-
+-- */Task 13: Identify Members with Overdue Books (Write a query to identify members who have overdue books (assume a 30-day return period).
+	Display the member's name, book title, issue date, and days overdue).
+/*
 SELECT I.issued_member_id,
 		M.member_name,
 		B.book_title,
@@ -254,7 +255,7 @@ where
 	('2024-08-24' - I.issued_date) > 30
 ORDER BY I.Issued_member_id
 
-/* Task 14: Update Book Status on Return
+-- /* Task 14: Update Book Status on Return
 (Write a query to update the status of books in the books table to "available" when they are returned
 (based on entries in the return_status table)).
 */
@@ -309,7 +310,7 @@ CALL add_return_records ('RS138', 'IS135', 'GOOD');
 CALL add_return_records ('RS148', 'IS140', 'Good');
 
 
-/* Task 15: Branch Performance Report 
+-- /* Task 15: Branch Performance Report 
 (Create a query that generates a performance report for each branch, showing the number of books issued, 
 the number of books returned, and the total revenue generated from book rentals).
 */
@@ -338,7 +339,7 @@ ORDER BY 1 ;
 SELECT * FROM BRANCH_REPORTS
 	
 
-/* Task 16: CTAS: Create a Table of Active Members
+-- /* Task 16: CTAS: Create a Table of Active Members
 (Use the CREATE TABLE AS (CTAS) statement to create a new table active_members containing members who have issued at least one book in the last 6 months.)
 */
 
@@ -374,7 +375,7 @@ SELECT * FROM Active_members_1
 
 
 
-/* Task 17: Find Employees with the Most Book Issues Processed
+-- /* Task 17: Find Employees with the Most Book Issues Processed
 (Write a query to find the top 3 employees who have processed the most book issues. Display the employee name, number of books processed, and their branch.)
 */
 
@@ -392,7 +393,7 @@ ORDER BY 3 DESC
 LIMIT 3;
 	
 
-/* Task 18: Identify Members Issuing High-Risk Books 
+-- /* Task 18: Identify Members Issuing High-Risk Books 
 (Write a query to identify members who have issued books more than twice with the status "damaged" in the books table. 
 Display the member name, book title, and the number of times they've issued damaged books.)   
 */
@@ -412,7 +413,7 @@ GROUP BY 1,2,3
 HAVING COUNT(I.issued_id)>2;
 
 
-/* Task 19: Stored Procedure (Objective: Create a stored procedure to manage the status of books in a library system.
+-- /* Task 19: Stored Procedure (Objective: Create a stored procedure to manage the status of books in a library system.
     Description: Write a stored procedure that updates the status of a book based on its issuance or return.
 	Specifically:
     If a book is issued, the status should change to 'no'.
@@ -457,14 +458,14 @@ END;
 $$;
 
 --Testing the function
-SELECT * FROM BOOKS ''
-SELECT * FROM ISSUED_STATUS
+SELECT * FROM BOOKS;
+SELECT * FROM ISSUED_STATUS;
 
 '978-0-525-47535-5' --YES
 '978-0-375-41398-8' --NO
 
-CALL ISSUE_BOOK ('ISI155', 'C108', '978-0-525-47535-5', 'E104')
-CALL ISSUE_BOOK ('ISI156', 'C108', '978-0-375-41398-8', 'E104')
+CALL ISSUE_BOOK ('ISI155', 'C108', '978-0-525-47535-5', 'E104');
+CALL ISSUE_BOOK ('ISI156', 'C108', '978-0-375-41398-8', 'E104');
 
 
 /* Task 20: Create Table As Select (CTAS)
@@ -500,7 +501,7 @@ where
 	R.Return_date is NULL
 	AND 
 	('2024-08-24' - I.issued_date) > 30
-ORDER BY I.Issued_member_id
+ORDER BY I.Issued_member_id ;
 
 --Testing the function
-SELECT * FROM OVER_DUE_BOOK_WITH_FINES
+SELECT * FROM OVER_DUE_BOOK_WITH_FINES;
